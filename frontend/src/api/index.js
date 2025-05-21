@@ -78,7 +78,7 @@ class Api {
     }).then(this.checkResponse);
   }
 
-  changePassword({ current_password, new_password }) {
+  changePassword({ current_password, new_password, re_new_password }) {
     const token = localStorage.getItem("token");
     return fetch(`/api/users/set_password/`, {
       method: "POST",
@@ -86,7 +86,7 @@ class Api {
         ...this._headers,
         authorization: `Token ${token}`,
       },
-      body: JSON.stringify({ current_password, new_password }),
+      body: JSON.stringify({ current_password, new_password, re_new_password }),
     }).then(this.checkResponse);
   }
 
@@ -265,7 +265,7 @@ class Api {
 
   // subscriptions
 
-  getSubscriptions({ page, limit = 6, recipes_limit = 3 }) {
+  getSubscriptions({ page = 1, limit = 6, recipes_limit = 3 }) {
     const token = localStorage.getItem("token");
     return fetch(
       `/api/users/subscriptions/?page=${page}&limit=${limit}&recipes_limit=${recipes_limit}`,
